@@ -2,28 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quotation Maker - Khyati Polymers</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
 </head>
 <body>
+
   <header>
-    Quotation Maker - Khyati Polymers
+    <h1>Quotation Maker</h1>
+    <button id="newQuoteBtn">+ New Quotation</button>
   </header>
 
-  <button id="new-quote-btn">+ New Quotation</button>
+  <main>
+    <!-- Quotation List -->
+    <section id="quoteList" class="scrollable-list">
+      <h2>Existing Quotations</h2>
+      <ul id="quoteItems">
+        <!-- List will be populated by JS -->
+      </ul>
+    </section>
 
-  <div id="quote-list">
-    <!-- Quotation entries will be listed here -->
-  </div>
+    <!-- Quotation Form -->
+    <section id="quoteForm" class="hidden">
+      <h2 id="formTitle">New Quotation</h2>
+      <form id="quotationForm">
+        <label>Quote Number: <input type="text" name="quoteNo" required /></label>
+        <label>Customer Name: <input type="text" name="customerName" required /></label>
+        <label>Date: <input type="date" name="quoteDate" required /></label>
+        <label>Items:
+          <textarea name="items" rows="4" placeholder="e.g., 40mm Elbow - 10 pcs"></textarea>
+        </label>
+        <label>Total Amount: <input type="number" name="totalAmount" step="0.01" required /></label>
 
-  <form id="quote-form">
-    <h2>New Quotation</h2>
-    <input type="text" id="quoteNo" placeholder="Quotation No (e.g., KP-2526-0001)" required />
-    <input type="text" id="customerName" placeholder="Customer Name" required />
-    <textarea id="notes" placeholder="Notes / Description"></textarea>
-    <button type="submit">Save Quotation</button>
-  </form>
+        <div class="form-buttons">
+          <button type="submit">Save</button>
+          <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Khyati Polymers — Total rebate of money, total security of future.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
