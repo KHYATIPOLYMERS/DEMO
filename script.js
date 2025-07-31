@@ -1,37 +1,26 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbzIW2miqVjRwF2kkopwLrGtMD94oiI8BYdQz88NXVX8QxWOe4w11Lz08P5RZq5WQt3Ekg/exec";
-
-// Load quotations from backend
-async function loadQuotations() {
-  const response = await fetch(scriptURL + "?action=getQuotes");
-  const data = await response.json();
-  displayQuotes(data);
+function fetchQuotations() {
+  google.script.run.withSuccessHandler(displayQuotations).getQuotations;
 }
 
-// Submit a new quotation to backend
-async function submitQuote(e) {
-  e.preventDefault();
+function displayQuotations(data) {
+  const container = document.getElementById("quoteList");
+  container.innerHTML = "";
 
-  const formData = {
-    quoteNo: document.getElementById("quoteNo").value.trim(),
-    customerName: document.getElementById("customerName").value.trim(),
-    quoteDate: document.getElementById("quoteDate").value.trim(),
-    amount: document.getElementById("amount").value.trim(),
-    remarks: document.getElementById("remarks").value.trim()
-  };
-
-  const response = await fetch(scriptURL + "?action=saveQuote", {
-    method: "POST",
-    body: JSON.stringify(formData),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-
-  if (response.ok) {
-    alert("Quotation saved!");
-    document.getElementById("quoteForm").reset();
-    loadQuotations();
-  } else {
-    alert("Error saving quotation.");
+  if (data.length === 0) {
+    container.textContent = "No quotations found.";
+    return;
   }
+
+  data.forEach((row) => {
+    const div = document.createElement("div");
+    div.className = "quote-item";
+    div.innerHTML = `
+      <div class="quote-no">Quote No: ${row[0]}</div>
+      <div>Customer: ${row[1]}</div>
+      <div>Date: ${row[2]}</div>
+    `;
+    container.appendChild(div);
+  });
 }
+
+window.onload = fetchQuotations;
