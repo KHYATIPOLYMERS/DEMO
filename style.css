@@ -1,8 +1,81 @@
 body {
-  font-family: sans-serif;
-  text-align: center;
-  background-color: #e0f7fa;
   margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f7fa;
+  color: #333;
+}
+
+header {
+  background: #00416a;
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#quote-list {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.quote-item {
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.quote-item:hover {
+  transform: scale(1.01);
+  background: #f0f0f0;
+}
+
+#new-quote-btn {
+  display: block;
+  width: 90%;
+  margin: 1rem auto;
+  padding: 0.75rem;
+  background: #00a859;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#new-quote-btn:hover {
+  background: #008c4a;
+}
+
+#quote-form {
+  display: none;
   padding: 2rem;
-  color: #004d40;
+  background: white;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+#quote-form input,
+#quote-form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+#quote-form button {
+  background: #00416a;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#quote-form button:hover {
+  background: #002f4b;
 }
