@@ -1,95 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quotation Maker - Khyati Polymers</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quotation Maker</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
+      padding: 30px;
       background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
     }
-
-    header {
-      background-color: #00695c;
-      color: white;
-      padding: 15px 20px;
-      text-align: center;
-      font-size: 1.3em;
-    }
-
-    #quotation-list {
-      max-height: 85vh;
-      overflow-y: auto;
+    h1 { color: #00557f; }
+    .quote-box {
+      background: #fff;
       padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
-    .quote-entry {
-      background: white;
-      margin-bottom: 12px;
-      padding: 15px;
-      border-left: 5px solid #00695c;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .quote-entry:hover {
-      background: #e0f2f1;
-    }
-
-    .quote-entry strong {
+    label {
       display: block;
-      font-size: 1.1em;
-      color: #333;
+      margin-top: 15px;
+      font-weight: bold;
     }
-
-    .quote-entry small {
-      color: #666;
+    input {
+      padding: 8px;
+      width: 100%;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00557f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .quote-list {
+      margin-top: 40px;
+    }
+    .quote-item {
+      background: white;
+      padding: 10px;
+      border-left: 4px solid #00557f;
+      margin-bottom: 10px;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
-  <header>
-    Khyati Polymers - Quotation List
-  </header>
+  <h1>Khyati Polymers - Quotation Maker</h1>
 
-  <div id="quotation-list">
-    Loading quotations...
+  <div class="quote-box">
+    <label>Quote No:</label>
+    <input type="text" id="quoteNo" />
+
+    <label>Customer Name:</label>
+    <input type="text" id="customerName" />
+
+    <label>Quote Date:</label>
+    <input type="date" id="quoteDate" />
+
+    <button onclick="submitQuotation()">Submit Quotation</button>
+  </div>
+
+  <div class="quote-list">
+    <h2>Existing Quotations</h2>
+    <div id="quotesContainer">Loading...</div>
   </div>
 
   <script>
-    // Load quotations on page load
-    document.addEventListener("DOMContentLoaded", () => {
-      loadQuotations();
-    });
+    const API_URL = 'https://script.google.com/macros/s/PASTE_YOUR_SCRIPT_URL_HERE/exec'; // ← replace
 
-    function loadQuotations() {
-      google.script.run.withSuccessHandler(renderQuotations).getQuotations();
-    }
-
-    function renderQuotations(data) {
-      const container = document.getElementById("quotation-list");
-      container.innerHTML = ""; // Clear loading text
-
-      if (!data || data.length === 0) {
-        container.innerHTML = "<p>No quotations found.</p>";
-        return;
-      }
+    async function loadQuotations() {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      const container = document.getElementById('quotesContainer');
+      container.innerHTML = '';
 
       data.forEach(q => {
-        const row = document.createElement("div");
-        row.className = "quote-entry";
-        row.innerHTML = `
-          <strong>${q.QuoteNo}</strong>
-          ${q.CustomerName}<br>
-          <small>${q.QuoteDate}</small>
-        `;
-        container.appendChild(row);
+        const div = document.createElement('div');
+        div.className = 'quote-item';
+        div.innerHTML = `<strong>${q.QuoteNo}</strong> - ${q.CustomerName} (${q.QuoteDate})`;
+        container.appendChild(div);
       });
     }
+
+    async function submitQuotation() {
+      const quote = {
+        QuoteNo: document.getElementById('quoteNo').value,
+        CustomerName: document.getElementById('customerName').value,
+        QuoteDate: document.getElementById('quoteDate').value
+      };
+
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify(quote),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      alert('Quotation submitted!');
+      loadQuotations();
+    }
+
+    loadQuotations();
   </script>
 </body>
 </html>
