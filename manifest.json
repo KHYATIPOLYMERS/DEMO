@@ -1,0 +1,20 @@
+{
+  "name": "Khyati Polymers App",
+  "short_name": "Khyati",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#009688",
+  "icons": [
+    {
+      "src": "https://khyatipolymers.github.io/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://khyatipolymers.github.io/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
