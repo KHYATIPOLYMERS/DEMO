@@ -3,76 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quotation Maker</title>
+  <title>Quotation Maker | Khyati Polymers</title>
   <style>
+    :root {
+      --primary: #00557f;
+      --bg: #f9fbfc;
+      --text: #222;
+      --border: #dfe6ec;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       padding: 30px;
-      background-color: #f4f4f4;
     }
-    h1 { color: #00557f; }
-    .quote-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 600px;
+
+    header {
+      margin-bottom: 40px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin: 0;
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      padding: 25px 30px;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       margin-bottom: 30px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
+
     label {
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input {
-      padding: 8px;
-      width: 100%;
-      margin-top: 5px;
-    }
-    button {
       margin-top: 20px;
-      padding: 10px 20px;
-      background: #00557f;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    input {
+      margin-top: 6px;
+      padding: 10px;
+      width: 100%;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 22px;
+      background-color: var(--primary);
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-size: 15px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-    .quote-list {
-      margin-top: 40px;
+
+    button:hover {
+      background-color: #004066;
     }
+
     .quote-item {
-      background: white;
-      padding: 10px;
-      border-left: 4px solid #00557f;
-      margin-bottom: 10px;
-      border-radius: 4px;
+      background: #fff;
+      border-left: 4px solid var(--primary);
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    }
+
+    .quote-item strong {
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Khyati Polymers - Quotation Maker</h1>
+  <div class="container">
+    <header>
+      <h1>Quotation Maker | Khyati Polymers</h1>
+    </header>
 
-  <div class="quote-box">
-    <label>Quote No:</label>
-    <input type="text" id="quoteNo" />
+    <div class="card">
+      <label for="quoteNo">Quote No</label>
+      <input type="text" id="quoteNo" placeholder="e.g., KP-2526-0001" />
 
-    <label>Customer Name:</label>
-    <input type="text" id="customerName" />
+      <label for="customerName">Customer Name</label>
+      <input type="text" id="customerName" placeholder="e.g., Shree Traders" />
 
-    <label>Quote Date:</label>
-    <input type="date" id="quoteDate" />
+      <label for="quoteDate">Quote Date</label>
+      <input type="date" id="quoteDate" />
 
-    <button onclick="submitQuotation()">Submit Quotation</button>
-  </div>
+      <button onclick="submitQuotation()">Submit Quotation</button>
+    </div>
 
-  <div class="quote-list">
-    <h2>Existing Quotations</h2>
-    <div id="quotesContainer">Loading...</div>
+    <div class="card">
+      <h2 style="margin-top:0; color: var(--primary); font-size: 20px;">Recent Quotations</h2>
+      <div id="quotesContainer">Loading quotations...</div>
+    </div>
   </div>
 
   <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec'; // ← replace
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec';
 
     async function loadQuotations() {
       const res = await fetch(API_URL);
@@ -80,20 +152,30 @@
       const container = document.getElementById('quotesContainer');
       container.innerHTML = '';
 
-      data.forEach(q => {
+      if (data.length === 0) {
+        container.textContent = 'No quotations yet.';
+        return;
+      }
+
+      data.reverse().forEach(q => {
         const div = document.createElement('div');
         div.className = 'quote-item';
-        div.innerHTML = `<strong>${q.QuoteNo}</strong> - ${q.CustomerName} (${q.QuoteDate})`;
+        div.innerHTML = `<strong>${q.QuoteNo}</strong><br>${q.CustomerName} — <span>${q.QuoteDate}</span>`;
         container.appendChild(div);
       });
     }
 
     async function submitQuotation() {
       const quote = {
-        QuoteNo: document.getElementById('quoteNo').value,
-        CustomerName: document.getElementById('customerName').value,
+        QuoteNo: document.getElementById('quoteNo').value.trim(),
+        CustomerName: document.getElementById('customerName').value.trim(),
         QuoteDate: document.getElementById('quoteDate').value
       };
+
+      if (!quote.QuoteNo || !quote.CustomerName || !quote.QuoteDate) {
+        alert("Please fill all fields.");
+        return;
+      }
 
       await fetch(API_URL, {
         method: 'POST',
@@ -102,6 +184,10 @@
       });
 
       alert('Quotation submitted!');
+      document.getElementById('quoteNo').value = '';
+      document.getElementById('customerName').value = '';
+      document.getElementById('quoteDate').value = '';
+
       loadQuotations();
     }
 
