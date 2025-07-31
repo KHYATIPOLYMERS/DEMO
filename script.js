@@ -1,3 +1,2 @@
-function showAlert() {
-  alert("This is a high-quality PPR Pipe manufactured by Khyati Polymers.");
-}
+// No service worker — this script is just a placeholder
+console.log('App running without service worker');
