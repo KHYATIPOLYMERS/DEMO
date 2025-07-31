@@ -1,27 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quotation Maker</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quotation Builder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">KHYATI POLYMERS</div>
-    <nav class="nav-buttons">
-      <button onclick="showCustomerList()">Customers</button>
-      <button onclick="showProductList()">Products</button>
-      <button class="new-quote-btn" onclick="createNewQuotation()">+ New Quotation</button>
+  <!-- Header -->
+  <header class="header">
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Quotation Builder</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-success" onclick="createNewQuotation()">
+          <i class="fas fa-plus"></i>
+          New Quotation
+        </button>
+      </div>
     </nav>
   </header>
 
-  <main class="content">
-    <h2>Latest Quotations</h2>
-    <div id="quotation-list" class="quotation-list"></div>
-    <button id="load-more-btn" onclick="loadMoreQuotations()">Load More</button>
+  <!-- Main Content -->
+  <main class="container">
+    <div class="page-header">
+      <h1 class="page-title">Dashboard</h1>
+      <p class="page-subtitle">Manage your quotations, customers, and products</p>
+    </div>
+
+    <!-- Latest Quotations Section -->
+    <section class="section open" id="quotations-section">
+      <div class="section-header" onclick="toggleSection('quotations-section')">
+        <div class="section-title">
+          <i class="fas fa-file-alt section-icon"></i>
+          <span>Latest Quotations</span>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content">
+        <div class="content-grid" id="quotations-list">
+          <div class="loading">
+            <i class="fas fa-spinner"></i>
+            Loading quotations...
+          </div>
+        </div>
+        <div class="load-more-container">
+          <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreQuotations()" style="display: none;">
+            <i class="fas fa-chevron-down"></i>
+            Load More
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customers Section -->
+    <section class="section" id="customers-section">
+      <div class="section-header" onclick="toggleSection('customers-section')">
+        <div class="section-title">
+          <i class="fas fa-users section-icon"></i>
+          <span>Customers</span>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content">
+        <div class="content-grid" id="customers-list">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section" id="products-section">
+      <div class="section-header" onclick="toggleSection('products-section')">
+        <div class="section-title">
+          <i class="fas fa-boxes section-icon"></i>
+          <span>Products</span>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content">
+        <div class="content-grid" id="products-list">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
