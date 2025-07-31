@@ -1,20 +1,103 @@
 {
-  "name": "Khyati Polymers App",
-  "short_name": "Khyati",
+  "name": "Khyati Polymers Quotation Builder",
+  "short_name": "Khyati QB",
+  "description": "A modern quotation management system for Khyati Polymers",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#009688",
+  "orientation": "portrait-primary",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "finance"],
   "icons": [
     {
       "src": "https://khyatipolymers.github.io/logo192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "https://khyatipolymers.github.io/logo512.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view of Quotation Builder"
+    },
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of Quotation Builder"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Quotation",
+      "short_name": "New Quote",
+      "description": "Create a new quotation",
+      "url": "index.html?action=new-quote",
+      "icons": [
+        {
+          "src": "icon-new-quote.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "View Customers",
+      "short_name": "Customers",
+      "description": "View customer list",
+      "url": "index.html?view=customers",
+      "icons": [
+        {
+          "src": "icon-customers.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "View Products",
+      "short_name": "Products",
+      "description": "View product catalog",
+      "url": "index.html?view=products",
+      "icons": [
+        {
+          "src": "icon-products.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "dir": "ltr",
+  "iarc_rating_id": ""
 }
