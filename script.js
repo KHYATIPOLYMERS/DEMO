@@ -1,47 +1,36 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec"; // Replace with your deployed Web App URL
+let quotations = [];
+let currentIndex = 0;
+const batchSize = 15;
+const API_URL = 'https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec'; // Replace with actual Web App URL
 
-function loadQuotations() {
-  fetch(`${WEB_APP_URL}?action=getQuotations`)
-    .then(res => res.json())
-    .then(data => {
-      const listArea = document.getElementById("listArea");
-      listArea.innerHTML = "";
-      data.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.QuoteNo} - ${item.CustomerName} (${item.QuoteDate})`;
-        listArea.appendChild(li);
-      });
-    });
+// Load from Google Apps Script
+async function fetchQuotations() {
+  try {
+    const response = await fetch(`${API_URL}?action=getLatestQuotations`);
+    const data = await response.json();
+    quotations = data;
+    loadMoreQuotations();
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 }
 
-function loadCustomers() {
-  fetch(`${WEB_APP_URL}?action=getCustomers`)
-    .then(res => res.json())
-    .then(data => {
-      const listArea = document.getElementById("listArea");
-      listArea.innerHTML = "<h2>Customer List</h2>";
-      data.forEach(c => {
-        const li = document.createElement("li");
-        li.textContent = `${c.CustomerName} - ${c.Contact}`;
-        listArea.appendChild(li);
-      });
-    });
+function loadMoreQuotations() {
+  const listContainer = document.getElementById('quotation-list');
+  const nextBatch = quotations.slice(currentIndex, currentIndex + batchSize);
+
+  nextBatch.forEach(q => {
+    const item = document.createElement('div');
+    item.className = 'quotation-item';
+    item.innerText = `${q.QuoteNo} — ${q.CustomerName}`;
+    listContainer.appendChild(item);
+  });
+
+  currentIndex += batchSize;
+  if (currentIndex >= quotations.length) {
+    document.getElementById('load-more-btn').style.display = 'none';
+  }
 }
 
-function loadProducts() {
-  fetch(`${WEB_APP_URL}?action=getProducts`)
-    .then(res => res.json())
-    .then(data => {
-      const listArea = document.getElementById("listArea");
-      listArea.innerHTML = "<h2>Product List</h2>";
-      data.forEach(p => {
-        const li = document.createElement("li");
-        li.textContent = `${p.ProductName} - ${p.Size} - ${p.Price}`;
-        listArea.appendChild(li);
-      });
-    });
-}
-
-function newQuotation() {
-  alert("Form UI for new quotation coming soon!");
-}
+// Call on page load
+window.onload = fetchQuotations;
