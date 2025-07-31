@@ -3,15 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Khyati Polymers PWA</title>
+  <title>Quotation Maker</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#009688">
-  <link rel="icon" href="https://khyatipolymers.github.io/logo192.png" />
-  <script defer src="script.js"></script>
 </head>
 <body>
-  <h1>Welcome to Khyati Polymers</h1>
-  <p>This app works as a web shortcut on your mobile home screen!</p>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Quotations</h2>
+      <ul id="quotationList">
+        <!-- Quotations will load here -->
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <h2 id="formTitle">New Quotation</h2>
+      <form id="quotationForm">
+        <label for="quoteNo">Quote No:</label>
+        <input type="text" id="quoteNo" name="quoteNo" required />
+
+        <label for="customer">Customer Name:</label>
+        <input type="text" id="customer" name="customer" required />
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required />
+
+        <label for="item">Item Description:</label>
+        <input type="text" id="item" name="item" required />
+
+        <label for="qty">Quantity:</label>
+        <input type="number" id="qty" name="qty" required />
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required />
+
+        <label for="total">Total:</label>
+        <input type="number" id="total" name="total" readonly />
+
+        <button type="submit">Save Quotation</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
