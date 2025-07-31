@@ -1,33 +1,58 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 h1 {
-  text-align: center;
-  color: #2a9d8f;
+  margin: 0;
 }
 
-#quoteList {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #ffffff;
-  padding: 20px;
+.btn-group button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  background: #007acc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-group button:hover {
+  background: #005fa3;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.list li {
+  background: #eaf4ff;
+  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  transition: all 0.2s ease-in-out;
 }
 
-.quote-item {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
-}
-
-.quote-item:last-child {
-  border-bottom: none;
-}
-
-.quote-no {
-  font-weight: bold;
-  color: #264653;
+.list li:hover {
+  background: #d2e9ff;
 }
