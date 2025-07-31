@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quotation Builder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Header -->
@@ -32,7 +32,7 @@
       <p class="page-subtitle">Manage your quotations, customers, and products</p>
     </div>
 
-    <!-- Latest Quotations Section -->
+    <!-- Quotations -->
     <section class="section open" id="quotations-section">
       <div class="section-header" onclick="toggleSection('quotations-section')">
         <div class="section-title">
@@ -41,23 +41,17 @@
         </div>
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
-      <div class="section-content">
-        <div class="content-grid" id="quotations-list">
-          <div class="loading">
-            <i class="fas fa-spinner"></i>
-            Loading quotations...
-          </div>
-        </div>
-        <div class="load-more-container">
-          <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreQuotations()" style="display: none;">
-            <i class="fas fa-chevron-down"></i>
-            Load More
-          </button>
-        </div>
+      <div class="section-content" id="quotations-list">
+        <!-- Dynamically loaded -->
+      </div>
+      <div class="load-more-container">
+        <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreQuotations()" style="display: none;">
+          <i class="fas fa-chevron-down"></i> Load More
+        </button>
       </div>
     </section>
 
-    <!-- Customers Section -->
+    <!-- Customers -->
     <section class="section" id="customers-section">
       <div class="section-header" onclick="toggleSection('customers-section')">
         <div class="section-title">
@@ -66,14 +60,12 @@
         </div>
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
-      <div class="section-content">
-        <div class="content-grid" id="customers-list">
-          <!-- Content will be loaded dynamically -->
-        </div>
+      <div class="section-content" id="customers-list">
+        <!-- Loaded dynamically -->
       </div>
     </section>
 
-    <!-- Products Section -->
+    <!-- Products -->
     <section class="section" id="products-section">
       <div class="section-header" onclick="toggleSection('products-section')">
         <div class="section-title">
@@ -82,10 +74,8 @@
         </div>
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
-      <div class="section-content">
-        <div class="content-grid" id="products-list">
-          <!-- Content will be loaded dynamically -->
-        </div>
+      <div class="section-content" id="products-list">
+        <!-- Loaded dynamically -->
       </div>
     </section>
   </main>
