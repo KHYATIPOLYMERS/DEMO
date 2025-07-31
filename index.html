@@ -1,50 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quotation Maker - Khyati Polymers</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Quotation Viewer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <header>
-    <h1>Quotation Maker</h1>
-    <button id="newQuoteBtn">+ New Quotation</button>
-  </header>
-
-  <main>
-    <!-- Quotation List -->
-    <section id="quoteList" class="scrollable-list">
-      <h2>Existing Quotations</h2>
-      <ul id="quoteItems">
-        <!-- List will be populated by JS -->
-      </ul>
-    </section>
-
-    <!-- Quotation Form -->
-    <section id="quoteForm" class="hidden">
-      <h2 id="formTitle">New Quotation</h2>
-      <form id="quotationForm">
-        <label>Quote Number: <input type="text" name="quoteNo" required /></label>
-        <label>Customer Name: <input type="text" name="customerName" required /></label>
-        <label>Date: <input type="date" name="quoteDate" required /></label>
-        <label>Items:
-          <textarea name="items" rows="4" placeholder="e.g., 40mm Elbow - 10 pcs"></textarea>
-        </label>
-        <label>Total Amount: <input type="number" name="totalAmount" step="0.01" required /></label>
-
-        <div class="form-buttons">
-          <button type="submit">Save</button>
-          <button type="button" id="cancelBtn">Cancel</button>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 Khyati Polymers — Total rebate of money, total security of future.</p>
-  </footer>
+  <h1>Quotation List</h1>
+  <div id="quoteList">Loading quotations...</div>
 
   <script src="script.js"></script>
 </body>
