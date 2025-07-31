@@ -1,21 +1,58 @@
-document.getElementById("new-quote-btn").addEventListener("click", function () {
-  document.getElementById("quote-form").style.display = "block";
-  document.getElementById("quote-list").style.display = "none";
-});
+document.addEventListener("DOMContentLoaded", function () {
+  const quoteItemsList = document.getElementById("quoteItems");
+  const quoteFormSection = document.getElementById("quoteForm");
+  const quoteForm = document.getElementById("form");
+  const showFormBtn = document.getElementById("showFormBtn");
+  const cancelBtn = document.getElementById("cancelBtn");
 
-document.getElementById("quote-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+  // Fetch and list existing quotations
+  fetchQuotes();
 
-  const quoteNo = document.getElementById("quoteNo").value;
-  const customer = document.getElementById("customerName").value;
+  // Show the form for a new quotation
+  showFormBtn.addEventListener("click", () => {
+    quoteForm.reset();
+    quoteFormSection.classList.remove("hidden");
+    quoteForm.scrollIntoView({ behavior: "smooth" });
+  });
 
-  const list = document.getElementById("quote-list");
-  const newItem = document.createElement("div");
-  newItem.className = "quote-item";
-  newItem.innerHTML = `<strong>${quoteNo}</strong><br>${customer}`;
-  list.appendChild(newItem);
+  // Cancel form
+  cancelBtn.addEventListener("click", () => {
+    quoteFormSection.classList.add("hidden");
+  });
 
-  document.getElementById("quote-form").reset();
-  document.getElementById("quote-form").style.display = "none";
-  list.style.display = "block";
+  // Handle form submit
+  quoteForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const data = {
+      quoteNo: document.getElementById("quoteNo").value,
+      customerName: document.getElementById("customerName").value,
+      quoteDate: document.getElementById("quoteDate").value,
+      amount: document.getElementById("amount").value,
+      remarks: document.getElementById("remarks").value,
+    };
+
+    google.script.run
+      .withSuccessHandler(() => {
+        alert("Quotation saved successfully.");
+        fetchQuotes();
+        quoteFormSection.classList.add("hidden");
+      })
+      .saveQuote(data);
+  });
+
+  // Load existing quotes from Google Sheets
+  function fetchQuotes() {
+    google.script.run.withSuccessHandler(renderQuotes).getQuotes();
+  }
+
+  // Render quotes to the list
+  function renderQuotes(quotes) {
+    quoteItemsList.innerHTML = "";
+    quotes.forEach((q) => {
+      const li = document.createElement("li");
+      li.textContent = `${q.quoteNo} - ${q.customerName} - ₹${q.amount}`;
+      quoteItemsList.appendChild(li);
+    });
+  }
 });
