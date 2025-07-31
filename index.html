@@ -2,27 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quotation Builder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2c3e50" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Quotation Builder" />
 </head>
 <body>
   <!-- Header -->
   <header class="header">
-    <nav class="navbar">
+    <div class="top-bar">
       <div class="logo">
         <i class="fas fa-file-invoice-dollar"></i>
         <span>Quotation Builder</span>
       </div>
-      <div class="nav-actions">
-        <button class="btn btn-success" onclick="createNewQuotation()">
-          <i class="fas fa-plus"></i>
-          New Quotation
-        </button>
-      </div>
-    </nav>
+      <button class="btn btn-success" onclick="createNewQuotation()">
+        <i class="fas fa-plus"></i> New Quotation
+      </button>
+    </div>
   </header>
 
   <!-- Main Content -->
@@ -32,7 +40,7 @@
       <p class="page-subtitle">Manage your quotations, customers, and products</p>
     </div>
 
-    <!-- Quotations -->
+    <!-- Latest Quotations -->
     <section class="section open" id="quotations-section">
       <div class="section-header" onclick="toggleSection('quotations-section')">
         <div class="section-title">
@@ -42,7 +50,7 @@
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
       <div class="section-content" id="quotations-list">
-        <!-- Dynamically loaded -->
+        <!-- Dynamic quotation list will be injected here -->
       </div>
       <div class="load-more-container">
         <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreQuotations()" style="display: none;">
@@ -61,7 +69,7 @@
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
       <div class="section-content" id="customers-list">
-        <!-- Loaded dynamically -->
+        <!-- Dynamic customer list will be injected here -->
       </div>
     </section>
 
@@ -75,11 +83,12 @@
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
       <div class="section-content" id="products-list">
-        <!-- Loaded dynamically -->
+        <!-- Dynamic product list will be injected here -->
       </div>
     </section>
   </main>
 
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
