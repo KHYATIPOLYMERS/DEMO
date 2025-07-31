@@ -1,7 +1,7 @@
 let quotations = [];
 let currentIndex = 0;
 const batchSize = 15;
-const API_URL = https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec; // Replace with actual Web App URL
+const API_URL = 'https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec'; // Replace with actual Web App URL
 
 // Load from Google Apps Script
 async function fetchQuotations() {
