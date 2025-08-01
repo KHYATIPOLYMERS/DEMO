@@ -4,12 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quotation Builder</title>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#1d4ed8"/>
-  <link rel="icon" href="icons/icon-192.png" type="image/png" />
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0066cc">
 </head>
 <body>
   <!-- Header -->
@@ -21,8 +26,7 @@
       </div>
       <div class="nav-actions">
         <button class="btn btn-success" onclick="createNewQuotation()">
-          <i class="fas fa-plus"></i>
-          New Quotation
+          <i class="fas fa-plus"></i> New Quotation
         </button>
       </div>
     </nav>
@@ -44,9 +48,7 @@
         </div>
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
-      <div class="section-content" id="quotations-list">
-        <!-- Dynamically loaded -->
-      </div>
+      <div class="section-content" id="quotations-list"></div>
       <div class="load-more-container">
         <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreQuotations()" style="display: none;">
           <i class="fas fa-chevron-down"></i> Load More
@@ -54,21 +56,7 @@
       </div>
     </section>
 
-    <!-- Customers -->
-    <section class="section" id="customers-section">
-      <div class="section-header" onclick="toggleSection('customers-section')">
-        <div class="section-title">
-          <i class="fas fa-users section-icon"></i>
-          <span>Customers</span>
-        </div>
-        <i class="fas fa-chevron-down section-toggle"></i>
-      </div>
-      <div class="section-content" id="customers-list">
-        <!-- Loaded dynamically -->
-      </div>
-    </section>
-
-    <!-- Products -->
+    <!-- Products Section -->
     <section class="section" id="products-section">
       <div class="section-header" onclick="toggleSection('products-section')">
         <div class="section-title">
@@ -78,11 +66,31 @@
         <i class="fas fa-chevron-down section-toggle"></i>
       </div>
       <div class="section-content" id="products-list">
-        <!-- Loaded dynamically -->
+        <button class="btn btn-success" onclick="openProductModal()">+ Add Product</button>
+        <div id="product-table-container"></div>
       </div>
     </section>
   </main>
 
+  <!-- Product Modal -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeProductModal()">&times;</span>
+      <h2 id="modal-title">Add Product</h2>
+      <form id="product-form">
+        <input type="hidden" id="editIndex" />
+        <input type="text" id="ItemKeyID" placeholder="Item Key ID" required />
+        <input type="text" id="ItemName" placeholder="Item Name" required />
+        <input type="text" id="Alias" placeholder="Alias" />
+        <input type="text" id="Category" placeholder="Category" />
+        <input type="text" id="Unit" placeholder="Unit" />
+        <input type="number" id="PriceList" placeholder="Price" step="0.01" />
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
 </html>
