@@ -1,21 +1,121 @@
 {
-  "name": "Quotation Builder",
-  "short_name": "Quotation",
-  "start_url": ".",
+  "name": "Khyati Polymers - Quotation Manager",
+  "short_name": "Khyati QB",
+  "description": "Modern quotation management system for Khyati Polymers",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1d4ed8",
-  "description": "Create and manage quotations easily.",
+  "orientation": "portrait-primary",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "finance"],
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "https://khyatipolymers.github.io/logo192.png",
       "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://khyatipolymers.github.io/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-72x72.png",
+      "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
+      "src": "/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
       "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view of Quotation Manager"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of Quotation Manager"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Quotation",
+      "short_name": "New Quote",
+      "description": "Create a new quotation",
+      "url": "/?action=new-quote",
+      "icons": [
+        {
+          "src": "/icon-shortcut-quote.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "short_name": "Products",
+      "description": "Manage products",
+      "url": "/?tab=products",
+      "icons": [
+        {
+          "src": "/icon-shortcut-products.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "short_name": "Customers",
+      "description": "Manage customers",
+      "url": "/?tab=customers",
+      "icons": [
+        {
+          "src": "/icon-shortcut-customers.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "dir": "ltr",
+  "display_override": ["window-controls-overlay"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 }
