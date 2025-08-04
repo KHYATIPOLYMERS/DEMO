@@ -1,96 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quotation Builder</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Manifest -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>Khyati Polymers - Quotation Manager</title>
+  
+  <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0066cc">
+  <link rel="apple-touch-icon" href="https://khyatipolymers.github.io/logo192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <nav class="navbar">
-      <div class="logo">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <span>Quotation Builder</span>
-      </div>
-      <div class="nav-actions">
-        <button class="btn btn-success" onclick="createNewQuotation()">
-          <i class="fas fa-plus"></i> New Quotation
-        </button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Main Content -->
-  <main class="container">
-    <div class="page-header">
-      <h1 class="page-title">Dashboard</h1>
-      <p class="page-subtitle">Manage your quotations, customers, and products</p>
-    </div>
-
-    <!-- Quotations -->
-    <section class="section open" id="quotations-section">
-      <div class="section-header" onclick="toggleSection('quotations-section')">
-        <div class="section-title">
-          <i class="fas fa-file-alt section-icon"></i>
-          <span>Latest Quotations</span>
-        </div>
-        <i class="fas fa-chevron-down section-toggle"></i>
-      </div>
-      <div class="section-content" id="quotations-list"></div>
-      <div class="load-more-container">
-        <button class="btn btn-secondary" id="load-more-btn" onclick="loadMoreQuotations()" style="display: none;">
-          <i class="fas fa-chevron-down"></i> Load More
-        </button>
-      </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="section" id="products-section">
-      <div class="section-header" onclick="toggleSection('products-section')">
-        <div class="section-title">
-          <i class="fas fa-boxes section-icon"></i>
-          <span>Products</span>
-        </div>
-        <i class="fas fa-chevron-down section-toggle"></i>
-      </div>
-      <div class="section-content" id="products-list">
-        <button class="btn btn-success" onclick="openProductModal()">+ Add Product</button>
-        <div id="product-table-container"></div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Product Modal -->
-  <div id="product-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeProductModal()">&times;</span>
-      <h2 id="modal-title">Add Product</h2>
-      <form id="product-form">
-        <input type="hidden" id="editIndex" />
-        <input type="text" id="ItemKeyID" placeholder="Item Key ID" required />
-        <input type="text" id="ItemName" placeholder="Item Name" required />
-        <input type="text" id="Alias" placeholder="Alias" />
-        <input type="text" id="Category" placeholder="Category" />
-        <input type="text" id="Unit" placeholder="Unit" />
-        <input type="number" id="PriceList" placeholder="Price" step="0.01" />
-        <button type="submit" class="btn btn-primary">Save</button>
-      </form>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <img src="https://khyatipolymers.github.io/logo192.png" alt="Khyati Polymers" class="loading-logo">
+      <div class="loading-spinner"></div>
+      <p>Loading Khyati Polymers...</p>
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- App Container -->
+  <div id="app" class="app-container" style="display: none;">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="https://khyatipolymers.github.io/logo192.png" alt="Khyati Polymers" class="header-logo">
+          <div class="header-text">
+            <h1>Khyati Polymers</h1>
+            <span>Quotation Manager</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="sync-btn" class="btn btn-secondary" title="Sync with Google Sheets">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </button>
+      <button class="tab-btn" data-tab="products">
+        <i class="fas fa-boxes"></i>
+        <span>Products</span>
+      </button>
+      <button class="tab-btn" data-tab="customers">
+        <i class="fas fa-users"></i>
+        <span>Customers</span>
+      </button>
+    </nav>
+
+    <!-- Tab Content -->
+    <main class="tab-content">
+      <!-- Home Tab -->
+      <div id="home-tab" class="tab-pane active">
+        <div class="tab-header">
+          <div class="tab-title">
+            <h2>Recent Quotations</h2>
+            <p>Manage and view your quotations</p>
+          </div>
+          <button class="btn btn-primary" id="new-quotation-btn">
+            <i class="fas fa-plus"></i>
+            New Quotation
+          </button>
+        </div>
+        
+        <div class="content-section">
+          <div id="quotations-list" class="items-grid">
+            <div class="loading-placeholder">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Loading quotations...</p>
+            </div>
+          </div>
+          <div class="load-more-section">
+            <button id="load-more-quotations" class="btn btn-secondary" style="display: none;">
+              <i class="fas fa-chevron-down"></i>
+              Load More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Tab -->
+      <div id="products-tab" class="tab-pane">
+        <div class="tab-header">
+          <div class="tab-title">
+            <h2>Product Catalog</h2>
+            <p>Manage your product inventory</p>
+          </div>
+          <button class="btn btn-primary" id="new-product-btn">
+            <i class="fas fa-plus"></i>
+            Add Product
+          </button>
+        </div>
+        
+        <div class="content-section">
+          <div class="search-section">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="product-search" placeholder="Search products...">
+            </div>
+          </div>
+          <div id="products-list" class="items-grid">
+            <div class="loading-placeholder">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Loading products...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customers Tab -->
+      <div id="customers-tab" class="tab-pane">
+        <div class="tab-header">
+          <div class="tab-title">
+            <h2>Customer Directory</h2>
+            <p>Manage your customer relationships</p>
+          </div>
+          <button class="btn btn-primary" id="new-customer-btn">
+            <i class="fas fa-plus"></i>
+            Add Customer
+          </button>
+        </div>
+        
+        <div class="content-section">
+          <div class="search-section">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="customer-search" placeholder="Search customers...">
+            </div>
+          </div>
+          <div id="customers-list" class="items-grid">
+            <div class="loading-placeholder">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Loading customers...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Container -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal Title</h3>
+        <button class="modal-close" id="modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <!-- Dynamic buttons will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <i class="toast-icon"></i>
+      <span class="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- PWA Install Prompt -->
+  <div id="install-prompt" class="install-prompt" style="display: none;">
+    <div class="install-content">
+      <i class="fas fa-mobile-alt"></i>
+      <div class="install-text">
+        <h4>Install App</h4>
+        <p>Add to home screen for quick access</p>
+      </div>
+      <button id="install-btn" class="btn btn-primary btn-sm">Install</button>
+      <button id="dismiss-install" class="btn btn-ghost btn-sm">Later</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
