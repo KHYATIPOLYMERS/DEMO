@@ -1,7 +1,7 @@
 // App Configuration
 const CONFIG = {
     // Replace with your Google Apps Script Web App URL
-    GOOGLE_SHEET_URL: 'https://script.google.com/macros/s/AKfycbzgjW8V1rTaBjnpeh1RZ-ieWHlICOPqyaBaoVNzghPluDmAwD_aEb6WnDkkYo11Oztp/exec',
+    GOOGLE_SHEET_URL: 'https://script.google.com/macros/s/AKfycbz9ERI8T6p-2mYRuC340dQw5bSdNMvyjTFZwGYEtW6U8mjoMJFd7CMmcB28HzqA4OeF/exec',
     QUOTATIONS_PER_PAGE: 15,
     CACHE_DURATION: 5 * 60 * 1000, // 5 minutes
 };
